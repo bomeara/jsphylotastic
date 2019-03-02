@@ -38,7 +38,11 @@
  <br />
  <br />
 
-    <button onclick="getTaxa()">Build tree</button>
+    <button onclick="getTaxa()">Build tree of taxa on page</button>
+
+    <br />
+
+    <button onclick="getSubTaxaFromTitle()">Build tree of descendants of page title</button>
     <br />
     <br />
 
@@ -109,13 +113,11 @@
   }
   </script>
 
- Now with alerting
- 
+
   <script>
   function getSubTaxaFromTitle() {
     var titletaxon = document.title;
     titletaxon = titletaxon.split(" ")[0];
-    alert(titletaxon);
     var xmlhttpSubtaxa = new XMLHttpRequest();
     var descendant_taxa = "";
     xmlhttpSubtaxa.onreadystatechange = function() {
