@@ -32,7 +32,7 @@
 
     <input type="text" id="myText" value="https://eol.org/pages/4186">
 
-    <button onclick="buildTree()">Build tree</button>
+    <button onclick="getTaxa()">Build tree</button>
 
 
     <p id="demo"></p>
@@ -42,16 +42,32 @@
   </div>
 
 
+  <script>
+  function getTree() {
+    var xmlhttpTree = new XMLHttpRequest();
+    xmlhttpTree.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var myObj = JSON.parse(this.responseText);
+        document.getElementById("newick").innerHTML = myObj.newick;
+      }
+    };
+    xmlhttpTree.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/gt/ot/get_tree?taxa=" + taxa, true);
+    xmlhttpTree.send();
+  }
+  </script>
+
 
   <script>
-  function buildTree() {
+  function getTaxa() {
     var xmlhttp = new XMLHttpRequest();
     var taxa = "";
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var myObj = JSON.parse(this.responseText);
         document.getElementById("demo").innerHTML = myObj.scientificNames;
-        taxa = myObj.scientificNames;
+        taxa = encodeURI(myObj.scientificNames);
+        taxa = taxa.replace(/,/g,"|" );
+        getTree();
       }
     };
     xmlhttp.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/fn/names_url?url=" + document.getElementById("myText").value + "engine=1", true);
