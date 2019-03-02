@@ -70,7 +70,7 @@
         //document.getElementById("newick").innerHTML = myObj.newick;
         var tree = d3.layout.phylotree()
           // create a tree layout object
-          .svg(d3.select());
+          .svg(d3.select(where));
         // render to this SVG element
 
         tree(myObj.newick)
@@ -139,7 +139,7 @@
 
 <br />
 
-<h4>Tree of descendant taxa on this page</h4>
+<h4>Tree of descendant taxa of the title of this page</h4>
 
 <br />
 <svg id="descendant_tree_display" />
