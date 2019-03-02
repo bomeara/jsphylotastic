@@ -31,28 +31,29 @@
     Enter an EOL page:
 
     <input type="text" id="myText" value="https://eol.org/pages/4186">
-
+ <br />
     <button onclick="getTaxa()">Build tree</button>
     <br />
-    Demo info
+    Detected taxa:
     <p id="demo"></p>
 
     <br />
 
-    Newick info
-
-    <p id="newick"></p>
+    <p id="loading"></p>
 
   </div>
 
 
   <script>
   function getTree(taxa) {
+    document.getElementById("loading").innerHTML = "Now fetching tree";
     var xmlhttpTree = new XMLHttpRequest();
     xmlhttpTree.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("loading").innerHTML = "";
+
         var myObj = JSON.parse(this.responseText);
-        document.getElementById("newick").innerHTML = myObj.newick;
+        //document.getElementById("newick").innerHTML = myObj.newick;
         var tree = d3.layout.phylotree()
           // create a tree layout object
           .svg(d3.select("#tree_display"));
