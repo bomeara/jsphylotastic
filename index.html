@@ -109,11 +109,13 @@
   }
   </script>
 
-
+ Now with alerting
+ 
   <script>
   function getSubTaxaFromTitle() {
     var titletaxon = document.title;
     titletaxon = titletaxon.split(" ")[0];
+    alert(titletaxon);
     var xmlhttpSubtaxa = new XMLHttpRequest();
     var descendant_taxa = "";
     xmlhttpSubtaxa.onreadystatechange = function() {
