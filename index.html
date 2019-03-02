@@ -26,7 +26,34 @@
 </head>
 
 <body>
-  Try 5.
+
+  <div>
+    Enter an EOL page:
+
+    <input type="text" id="myText" value="https://eol.org/pages/4186">
+
+    <button onclick="buildTree()">Build tree</button>
+
+
+    <p id="demo"></p>
+    
+  </div>
+
+
+
+  <script>
+  function buildTree() {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var myObj = JSON.parse(this.responseText);
+        document.getElementById("demo").innerHTML = myObj.scientificNames;
+      }
+    };
+    xmlhttp.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/fn/names_url?url=" + document.getElementById("myText").value + "engine=1", true);
+    xmlhttp.send();
+  }
+  </script>
 
   <svg id="tree_display" />
 
