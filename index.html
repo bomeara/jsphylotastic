@@ -34,13 +34,16 @@
     <br />
     <br />
 
-    <input type="text" id="myText" value="https://eol.org/pages/2322/names/" size="200">
+    <input type="text" id="myText" value="https://eol.org/pages/2312/names/" size="200">
  <br />
  <br />
 
     <button onclick="getTaxa()">Build tree of taxa on page</button>
 
     <br />
+
+    <input type="text" id="taxonomicgroup" value="Cephalopoda" size="200">
+
 
     <button onclick="getSubTaxaFromTitle()">Build tree of descendants of page title</button>
     <br />
@@ -113,12 +116,9 @@
   }
   </script>
 
-Alerting
 
   <script>
   function getSubTaxaFromTitle() {
-    var titletaxon = document.title;
-    titletaxon = titletaxon.split(" ")[0];
     var xmlhttpSubtaxa = new XMLHttpRequest();
     var descendant_taxa = "";
     xmlhttpSubtaxa.onreadystatechange = function() {
@@ -131,8 +131,7 @@ Alerting
         getTree(descendant_taxa, "#descendant_tree_display");
       }
     };
-    alert(titletaxon);
-    xmlhttpSubtaxa.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/ts/ot/all_species?taxon=" + titletaxon, true);
+    xmlhttpSubtaxa.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/ts/ot/all_species?taxon=" + document.getElementById("taxonomicgroup").value, true);
     xmlhttpSubtaxa.send();
 
   }
