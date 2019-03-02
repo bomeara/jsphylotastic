@@ -118,7 +118,7 @@
         getTree(descendant_taxa, "#descendant_tree_display");
       }
     };
-    xmlhttpSubtaxa.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/ts/ot/all_species?taxon=" titletaxon + true);
+    xmlhttpSubtaxa.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/ts/ot/all_species?taxon=" titletaxon, true);
     xmlhttpSubtaxa.send();
 
   }
