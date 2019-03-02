@@ -36,7 +36,9 @@
 
 
     <p id="demo"></p>
-    
+
+    <p id="newick"></p>
+
   </div>
 
 
@@ -44,14 +46,19 @@
   <script>
   function buildTree() {
     var xmlhttp = new XMLHttpRequest();
+    var taxa = "";
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var myObj = JSON.parse(this.responseText);
         document.getElementById("demo").innerHTML = myObj.scientificNames;
+        taxa = myObj.scientificNames;
       }
     };
     xmlhttp.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/fn/names_url?url=" + document.getElementById("myText").value + "engine=1", true);
     xmlhttp.send();
+
+
+
   }
   </script>
 
