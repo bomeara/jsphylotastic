@@ -33,9 +33,11 @@
     <input type="text" id="myText" value="https://eol.org/pages/4186">
 
     <button onclick="getTaxa()">Build tree</button>
-
+    <br />
     Demo info
     <p id="demo"></p>
+
+    <br />
 
     Newick info
 
@@ -45,7 +47,7 @@
 
 
   <script>
-  function getTree() {
+  function getTree(taxa) {
     var xmlhttpTree = new XMLHttpRequest();
     xmlhttpTree.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
@@ -81,7 +83,7 @@
         document.getElementById("demo").innerHTML = myObj.scientificNames;
         taxa = encodeURI(myObj.scientificNames);
         taxa = taxa.replace(/,/g,"|" );
-        getTree();
+        getTree(taxa);
       }
     };
     xmlhttp.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/fn/names_url?url=" + document.getElementById("myText").value + "engine=1", true);
