@@ -34,8 +34,10 @@
 
     <button onclick="getTaxa()">Build tree</button>
 
-
+    Demo info
     <p id="demo"></p>
+
+    Newick info
 
     <p id="newick"></p>
 
@@ -49,6 +51,18 @@
       if (this.readyState == 4 && this.status == 200) {
         var myObj = JSON.parse(this.responseText);
         document.getElementById("newick").innerHTML = myObj.newick;
+        var tree = d3.layout.phylotree()
+          // create a tree layout object
+          .svg(d3.select("#tree_display"));
+        // render to this SVG element
+
+        tree(myObj.newick)
+          // parse the Newick into a d3 hierarchy object with additional fields
+          .layout();
+        // layout and render the tree
+
+        // for syntax highlighting
+        hljs.initHighlightingOnLoad();
       }
     };
     xmlhttpTree.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/gt/ot/get_tree?taxa=" + taxa, true);
