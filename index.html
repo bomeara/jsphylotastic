@@ -47,6 +47,12 @@
 
     <br />
 
+    Descendant taxa of the subject of the page:
+    <p id="descendant_demo"></p>
+
+    <br />
+
+
     <p id="loading"></p>
 
   </div>
@@ -113,12 +119,14 @@
     xmlhttpSubtaxa.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var myObj = JSON.parse(this.responseText);
+        document.getElementById("descendant_demo").innerHTML = myObj.species;
+
         descendant_taxa = encodeURI(myObj.species);
-        descendant_taxa = taxa.replace(/,/g,"|" );
+        descendant_taxa = descendant_taxa.replace(/,/g,"|" );
         getTree(descendant_taxa, "#descendant_tree_display");
       }
     };
-    xmlhttpSubtaxa.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/ts/ot/all_species?taxon=" titletaxon, true);
+    xmlhttpSubtaxa.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/ts/ot/all_species?taxon=" + titletaxon, true);
     xmlhttpSubtaxa.send();
 
   }
