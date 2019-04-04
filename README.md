@@ -1,5 +1,5 @@
 # jstreeviz
-Minimal test examples of using packages for javascript tree viewing. You can see the page working at  https://bomeara.github.io/jstreeviz/index.html.
+Minimal test examples of using packages for javascript tree viewing. You can see the page working at  https://bomeara.github.io/jsphylotastic/index.html.
 
 This uses https://github.com/veg/phylotree.js (so the javascript file is from them, stored here for convenience), and is based on their vanilla example.
 
