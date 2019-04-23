@@ -28,26 +28,23 @@
 <body>
 
   <div>
-    <h4>Enter an EOL page URL</h4> <br />
-    Note that something like https://eol.org/pages/2322 has a subset of taxa; https://eol.org/pages/2322/names has more taxa listed. Also, Archaea seem to be always "detected" using TNRS, but they probably don't belong on this tree (for most EOL pages).
+    <h4>Enter an iNaturalist project id</h4> <br />
+    The project id can be found by navigating to the project's "species page"
+
+    The project id is displayed in the web address in the search bar
+    example: https://www.inaturalist.org/observations?project_id=7437&place_id=any&verifiable=any&captive=any&view=species
+
+    Note that this service will return a maximum of 500 results
 
     <br />
     <br />
 
-    <input type="text" id="myText" value="https://eol.org/pages/7676/names/" size="200">
+    <input type="text" id="myText" value="7437" size="200">
  <br />
  <br />
 
     <button onclick="getTaxa()">Build tree of taxa on page</button>
 
-    <br />
-    <h4>Or, enter a scientific name of a clade</h4> <br />
-
-    <input type="text" id="taxonomicgroup" value="Canidae" size="200">
-
-
-    <button onclick="getSubTaxaFromTitle()">Build tree of descendants of page title</button>
-    <br />
     <br />
 
     Detected taxa on the page:
@@ -103,13 +100,13 @@
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var myObj = JSON.parse(this.responseText);
-        document.getElementById("demo").innerHTML = myObj.scientificNames;
-        taxa = encodeURI(myObj.scientificNames);
+        document.getElementById("demo").innerHTML = myObj.name;
+        taxa = encodeURI(myObj.name);
         taxa = taxa.replace(/,/g,"|" );
         getTree(taxa, "#tree_display");
       }
     };
-    xmlhttp.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/fn/names_url?url=" + document.getElementById("myText").value + "&place_id=any&verifiable=any&captive=any&view=species", true);
+    xmlhttp.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/fn/names_url?url=" + document.getElementById("myText").value + "&engine=1", true);
     xmlhttp.send();
 
 
