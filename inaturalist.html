@@ -100,8 +100,10 @@
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var myObj = JSON.parse(this.responseText);
+        console.log(myObj)
         document.getElementById("demo").innerHTML = myObj.name;
         taxa = encodeURI(myObj.name);
+        console.log(taxa)
         taxa = taxa.replace(/,/g,"|" );
         getTree(taxa, "#tree_display");
       }
