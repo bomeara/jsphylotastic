@@ -108,7 +108,7 @@
         getTree(taxa, "#tree_display");
       }
     };
-    xmlhttp.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/fn/names_url?url=https://www.inaturalist.org/observations/species_counts?project_id=" + document.getElementById("myText").value + "&place_id=any&verifiable=any&captive=any&identified=true", true);
+    xmlhttp.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/fn/names_url?url=https://api.inaturalist.org/v1/observations/species_counts?project_id=" + document.getElementById("myText").value + "&place_id=any&verifiable=any&captive=any&identified=true", true);
     xmlhttp.send();
 
 
