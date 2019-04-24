@@ -100,10 +100,15 @@
     xmlhttp.onreadystatechange = function() {
       if (this.readyState == 4 && this.status == 200) {
         var myObj = JSON.parse(this.responseText);
-        console.log(myObj)
-        var results = myObj.results
-        console.log(results)
-        taxa = encodeURI(results.name);
+        console.log(myObj);
+        var results = (myObj.results[0]).name;
+        console.log(results);
+        var i = 0;
+        var sci_names = [];
+        for (i=0; i<results.length; i++) {
+          sci_names.push((results[i]).name);
+        }
+        var taxa = encodeURI(sci_names);
         console.log(taxa)
         taxa = taxa.replace(/,/g,"|" );
         getTree(taxa, "#tree_display");
