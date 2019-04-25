@@ -101,7 +101,7 @@
       if (this.readyState == 4 && this.status == 200) {
         var myObj = JSON.parse(this.responseText);
         console.log(myObj);
-        var results = myObj.results;
+        var results = (myObj.results).taxon;
         console.log(results);
         var i = 0;
         var sci_names = [];
