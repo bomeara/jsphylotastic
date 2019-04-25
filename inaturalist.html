@@ -106,7 +106,7 @@
         var i = 0;
         var sci_names = [];
         for (i=0; i<results.length; i++) {
-          sci_names.push((results[i]).name);
+          sci_names.push((results[i]).taxon.name);
         }
         var taxa = encodeURI(sci_names);
         console.log(taxa)
