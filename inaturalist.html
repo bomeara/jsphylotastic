@@ -29,10 +29,6 @@
 
   <div>
     <h4>Enter an iNaturalist project id</h4> <br />
-    The project id can be found by navigating to the project's "species page"
-
-    The project id is displayed in the web address in the search bar
-    example: https://www.inaturalist.org/observations?project_id=7437&place_id=any&verifiable=any&captive=any&view=species
 
     Note that this service will return a maximum of 500 results
 
@@ -40,22 +36,17 @@
     <br />
 
     <input type="text" id="myText" value="7437" size="200">
- <br />
- <br />
 
+    The project id can be found by navigating to the project's "species page"
+
+    <br />
+    The project id is displayed in the web address in the search bar
+    example: https://www.inaturalist.org/observations?project_id=7437&place_id=any&verifiable=any&captive=any&view=species
+    
+    <br />
+    <br />
     <button onclick="getTaxa()">Build tree of taxa on page</button>
 
-    <br />
-
-    Detected taxa on the page:
-    <p id="demo"></p>
-
-    <br />
-
-    Descendant taxa of the subject of the page:
-    <p id="descendant_demo"></p>
-
-    <br />
 
 
     <p id="loading"></p>
