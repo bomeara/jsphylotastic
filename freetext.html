@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset="utf-8">
+
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+  <link href="phylotree.css" rel="stylesheet">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="//code.jquery.com/jquery.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <script src="//d3js.org/d3.v3.min.js"></script>
+  <script src="phylotree.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" charset="utf-8"></script>
+  <style>
+#code {
+  display: inline-block;
+  width: 700px;
+  padding-left: 50px;
+}
+  </style>
+</head>
+
+<body>
+
+  <div>
+    <h4>Enter a set of species, separating by returns, commas, other punctuation</h4>
+
+    Note that this service will return a maximum of 500 results
+
+    <br />
+    <br />
+
+    <input type="text" id="myText" value="1108" size="200">
+
+
+    <br />
+    <br />
+    <button onclick="getTaxa()">Build tree of taxa on page</button>
+
+
+
+    <p id="loading"></p>
+
+  </div>
+
+
+  <script>
+  function getTree(taxa, where) {
+    document.getElementById("loading").innerHTML = "Now fetching tree";
+    var xmlhttpTree = new XMLHttpRequest();
+    xmlhttpTree.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("loading").innerHTML = "";
+
+        var myObj = JSON.parse(this.responseText);
+        //document.getElementById("newick").innerHTML = myObj.newick;
+        var tree = d3.layout.phylotree()
+          // create a tree layout object
+          .svg(d3.select(where));
+        // render to this SVG element
+
+        tree(myObj.newick)
+          // parse the Newick into a d3 hierarchy object with additional fields
+          .layout();
+        // layout and render the tree
+
+        // for syntax highlighting
+        hljs.initHighlightingOnLoad();
+      }
+    };
+    xmlhttpTree.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/gt/ot/get_tree?taxa=" + taxa + '&ottid=false', true);
+    xmlhttpTree.send();
+  }
+  </script>
+
+
+
+
+  <script>
+  function getTaxaFromFreeForm() {
+    var xmlhttp = new XMLHttpRequest();
+    var taxa = "";
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        var myObj = JSON.parse(this.responseText);
+        var results = myObj.results;
+        var i = 0;
+        var sci_names = [];
+        for (i=0; i<results.length; i++) {
+          sci_names.push((results[i]).taxon.name);
+        }
+        var taxa = encodeURI(sci_names);
+        taxa = taxa.replace(/,/g,"|" );
+        getTree(taxa, "#tree_display");
+      }
+    };
+    xmlhttp.open("GET", "https://phylo.cs.nmsu.edu/phylotastic_ws/fn/tf/names_text?text=" + encodeURI(document.getElementById("myText").value), true);
+    xmlhttp.send();
+
+
+
+  }
+  </script>
+
+
+ <h4>Tree of taxa on this page</h4>
+ <br />
+
+  <svg id="tree_display" />
+
+
+
+
+</body>
+
+</html>
